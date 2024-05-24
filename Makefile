@@ -5,4 +5,4 @@ run:build
 	@go run main.go
 
 watch:
-	@CompileDaemon -build="make build -B" -command="./build/orto" -color=true
+	@CompileDaemon -build="make build -B" -command="./build/jenkins_cli" -color=true
