@@ -20,9 +20,9 @@ var configureCmd = &cobra.Command{
 			}
 		}
 		// writing credentials
-		filePath := fmt.Sprintf("%s/config.yml", path)
-		data := fmt.Sprintf("credentials:\n\turl: %s\n\tusername: %s\n\tapiToken: %s\n", jenkinsURL, username, apiToken)
-		// data := fmt.Sprintf("url=%s\nusername=%s\napiToken=%s\n", jenkinsURL, username, apiToken) // required data
+		filePath := fmt.Sprintf("%s/credentials", path)
+		// data := fmt.Sprintf("credentials:\n\turl: %s\n\tusername: %s\n\tapiToken: %s\n", jenkinsURL, username, apiToken)
+		data := fmt.Sprintf("url=%s\nusername=%s\napiToken=%s\n", jenkinsURL, username, apiToken) // required data
 		if err := os.WriteFile(filePath, []byte(data), 0644); err != nil {
 			log.Fatalf("Configuration failed, %v\n", err)
 		}
