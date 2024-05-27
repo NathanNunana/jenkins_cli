@@ -2,14 +2,20 @@ pipeline{
   agent: { dockerfile true }
   stages {
     stage("Build"){
-      script {
-        sh "make build:image"
+      steps {
+        script {
+          sh "make build:image"
+        }
+
       }
     }
     stage("Deploy"){
-       script {
+       steps {
+        script {
           sh "make deploy"
-        } 
+        }
+
+      } 
     }
   }
 }
