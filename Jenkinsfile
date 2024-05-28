@@ -16,6 +16,7 @@ pipeline{
     stage("Build"){
       steps {
         script {
+          sh "ls"
           echo "Building image"
           sh "make build-image"
         }
