@@ -1,9 +1,10 @@
 pipeline{
-  agent {
-      docker {
-        image "gcc:latest"
-      }
-  } 
+  agent any 
+  //{
+    //  docker {
+      //  image "gcc:latest"
+      //}
+  //} 
   environment {
     DOCKERHUB_CREDENTIALS=credentials("dockerhub")
   }
