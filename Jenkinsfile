@@ -18,7 +18,8 @@ pipeline{
         script {
           sh "ls"
           echo "Building image"
-          sh "make build-image"
+          // sh "make build-image"
+          docker build -t ghost023/jcli:latest .
         }
       }
     }
