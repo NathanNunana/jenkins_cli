@@ -1,12 +1,10 @@
 pipeline{
   agent any 
-  //{
-    //  docker {
-      //  image "gcc:latest"
-      //}
-  //} 
   environment {
     DOCKERHUB_CREDENTIALS=credentials("dockerhub")
+    image='jcli'
+    username='ghost023'
+    version='latest'
   }
   stages {
     stage("Checkout"){
@@ -17,10 +15,8 @@ pipeline{
     stage("Build"){
       steps {
         script {
-          sh "ls"
           echo "Building image"
-          // sh "make build-image"
-          sh "docker build -t ghost023/jcli:latest ."
+          sh "docker build -t ${username}/${image}:${version} ."
         }
       }
     }
@@ -37,7 +33,7 @@ pipeline{
        steps {
         script {
           echo "Deploying image to registry"
-          sh "make deploy"
+          docker push ${username}/${image}:${version}
         }
       } 
     }

@@ -10,7 +10,7 @@ RUN go mod tidy
 
 COPY . .
 
-RUN make build
+RUN go build -o ./build/jcli
 
 EXPOSE 8080
 
