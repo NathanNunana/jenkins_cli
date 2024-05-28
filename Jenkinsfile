@@ -33,7 +33,7 @@ pipeline{
        steps {
         script {
           echo "Deploying image to registry"
-          docker push ${USERNAME}/${IMAGE}:${VERSION}
+          sh "docker push ${USERNAME}/${IMAGE}:${VERSION}"
         }
       } 
     }
