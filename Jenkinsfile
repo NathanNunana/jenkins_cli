@@ -1,5 +1,9 @@
 pipeline{
-  agent any 
+  agent {
+      docker {
+        image "gcc:latest"
+      }
+  } 
   environment {
     DOCKERHUB_CREDENTIALS=credentials("dockerhub")
   }
@@ -17,7 +21,7 @@ pipeline{
         }
       }
     }
-    stage("Docker Registry"){
+    stage("Docker Login"){
       steps {
         script {
             withCredentials([usernamePassword(credentialsId: 'dockerhub', passwordVariable: 'password', usernameVariable: 'username')]) {
