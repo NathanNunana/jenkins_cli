@@ -14,10 +14,12 @@ func GetJobs() ([]Job, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	cfg, err := config.GetConfig(path)
 	if err != nil {
 		return nil, err
 	}
+
 	// api
 	url := fmt.Sprintf("%s/api/json", cfg.JenkinsURL)
 	client := http.Client{}
@@ -46,6 +48,21 @@ func GetJobs() ([]Job, error) {
 	return jenkinsResponse.Jobs, nil
 }
 
-func CreateJob() (Job, error) {
+func CreateJob(name string) (Job, error) {
+	path, err := util.GetPath()
+	if err != nil {
+		return Job{}, err
+	}
+	cfg, err := config.GetConfig(path)
+	if err != nil {
+		return Job{}, err
+	}
+	util.ReadXml()
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/createItem?name=%s", cfg.JenkinsURL, name), nil)
+	if err != nil {
+		return Job{}, nil
+	}
+	req.SetBasicAuth(cfg.Username, cfg.ApiToken)
+	req.Header.Set("Content-Type", "application/xml")
 	return Job{}, nil
 }

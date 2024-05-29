@@ -17,18 +17,19 @@ func GetConfig(path string) (*Config, error) {
 	viper.SetConfigType("env")
 	viper.AddConfigPath(path)
 
-	if _, err := os.Stat(path); err == nil {
-		if err := viper.ReadInConfig(); err != nil {
-			return nil, err
-		}
+	if _, err := os.Stat(path); err != nil {
 		return nil, err
 	}
 
-	config := Config{
+	if err := viper.ReadInConfig(); err != nil {
+		return nil, err
+	}
+
+	config := &Config{
 		JenkinsURL: viper.GetString("url"),
 		Username:   viper.GetString("username"),
 		ApiToken:   viper.GetString("apiToken"),
 	}
 
-	return &config, nil
+	return config, nil
 }

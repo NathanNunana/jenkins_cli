@@ -16,7 +16,7 @@ var listJobCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		jobs, err := jenkins.GetJobs()
 		if err != nil {
-			log.Fatal(err)
+			log.Fatalf("failed to get jobs, %v", err)
 		}
 		// display the response
 		jobPrinter := printer.PrintJob{Jobs: jobs}
