@@ -1,4 +1,4 @@
-module github.com/NathanNunana/jenkins_cli
+module github.com/NathanNunana/jcli
 
 go 1.21.4
 

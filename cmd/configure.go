@@ -5,7 +5,7 @@ import (
 	"log"
 	"os"
 
-	"github.com/NathanNunana/jenkins_cli/internal/util"
+	"github.com/NathanNunana/jcli/internal/util"
 	"github.com/spf13/cobra"
 )
 

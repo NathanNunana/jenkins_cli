@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/NathanNunana/jenkins_cli/internal/config"
-	"github.com/NathanNunana/jenkins_cli/internal/util"
+	"github.com/NathanNunana/jcli/internal/config"
+	"github.com/NathanNunana/jcli/internal/util"
 )
 
 func GetJobs() ([]Job, error) {

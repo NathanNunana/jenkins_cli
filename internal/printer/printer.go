@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/NathanNunana/jenkins_cli/internal/jenkins"
+	"github.com/NathanNunana/jcli/internal/jenkins"
 )
 
 type IPrinter interface {
