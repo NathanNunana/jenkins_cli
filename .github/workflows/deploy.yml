@@ -27,4 +27,18 @@ jobs:
 
             - name: Build
               run: docker build -t $USERNAME/$IMAGE:$VERSION .
+
+            - name: docker_login
+              uses: docker/login-action@v3
+              with:
+                username: $USERNAME
+                password: ${{ secrets.DOCKERHUB_TOKEN}}
+            
+            - name: Push_to_dockerhub_registry
+              run: docker push $USERNAME/$IMAGE:$VERSION
+            
+            - name: docker_logout
+              run: docker logout
+        
+
               
