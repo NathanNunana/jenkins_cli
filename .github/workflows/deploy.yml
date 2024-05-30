@@ -1,0 +1,43 @@
+name: JenkinsCliDeploy
+
+env:
+    USERNAME: ghost023
+    IMAGE: jcli
+    VERSION: latest
+    
+
+on:
+    push:
+        branches:
+            - master
+            - chore/github-actions-setup
+    
+    pull_request:
+        branches:
+            - master
+
+        
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v4
+
+            - name: Build
+              run: docker build -t $USERNAME/$IMAGE:$VERSION .
+
+            - name: dockerhub_login
+              uses: docker/login-action@v3
+              with:
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
+            
+            - name: Push_to_dockerhub_registry
+              run: docker push $USERNAME/$IMAGE:$VERSION
+            
+            - name: docker_logout
+              run: docker logout
+        
+
+              
