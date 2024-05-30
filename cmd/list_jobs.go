@@ -4,8 +4,8 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/NathanNunana/jenkins_cli/internal/jenkins"
-	"github.com/NathanNunana/jenkins_cli/internal/printer"
+	"github.com/NathanNunana/jcli/internal/jenkins"
+	"github.com/NathanNunana/jcli/internal/printer"
 	"github.com/spf13/cobra"
 )
 
