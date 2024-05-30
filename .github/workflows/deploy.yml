@@ -4,7 +4,6 @@ env:
     USERNAME: ghost023
     IMAGE: jcli
     VERSION: latest
-
     
 
 on:
@@ -23,16 +22,16 @@ jobs:
         runs-on: ubuntu-latest
         steps:
             - name: Checkout
-              uses: actions/checkout@v3
+              uses: actions/checkout@v4
 
             - name: Build
               run: docker build -t $USERNAME/$IMAGE:$VERSION .
 
-            - name: docker_login
+            - name: dockerhub_login
               uses: docker/login-action@v3
               with:
-                username: $USERNAME
-                password: ${{ secrets.DOCKERHUB_TOKEN}}
+                username: ${{ secrets.DOCKERHUB_USERNAME }}
+                password: ${{ secrets.DOCKERHUB_TOKEN }}
             
             - name: Push_to_dockerhub_registry
               run: docker push $USERNAME/$IMAGE:$VERSION
