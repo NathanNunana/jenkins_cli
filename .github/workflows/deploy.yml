@@ -10,7 +10,6 @@ on:
     push:
         branches:
             - master
-            - chore/github-actions-setup
     
     pull_request:
         branches:
