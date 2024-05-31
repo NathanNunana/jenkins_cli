@@ -5,10 +5,6 @@ on:
   release:
     types: [created]
 
-permissions:
-  contents: write
-  packages: write
-
 jobs:
   release-matrix:
     name: Build and Release
@@ -16,15 +12,12 @@ jobs:
     strategy:
       matrix:
         goos: [linux, darwin, windows]
-        goarch: [amd64, 386, arm, arm64]
+        goarch: [amd64, 386, arm64]
     steps:
     - uses: actions/checkout@v2
-    - uses: wangyoucao577/go-release-action@v1
+    - uses: wangyoucao577/go-release-action@v1.16
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
-        goversion: "https://dl.google.com/go/go1.13.1.linux-amd64.tar.gz"
-        project_path: "./cmd/test-binary"
-        binary_name: "test-binary"
-        extra_files: LICENSE README.md
+        binary_name: "jcli"
