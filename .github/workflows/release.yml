@@ -23,7 +23,7 @@ jobs:
     - name: Build and Release
       uses: wangyoucao577/go-release-action@v1.16
       with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
+        github_token: ${{ secrets.TOKEN_GITHUB }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         binary_name: "jcli"
