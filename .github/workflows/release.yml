@@ -1,4 +1,3 @@
-
 name: Build Release
 
 on: 
@@ -15,9 +14,17 @@ jobs:
         goarch: [amd64, 386, arm64]
     steps:
     - uses: actions/checkout@v2
-    - uses: wangyoucao577/go-release-action@v1.16
+    - name: Set up Go
+      uses: actions/setup-go@v3
+      with:
+        go-version: '1.22'
+    - name: Install Dependencies
+      run: go mod tidy
+    - name: Build and Release
+      uses: wangyoucao577/go-release-action@v1.16
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         goos: ${{ matrix.goos }}
         goarch: ${{ matrix.goarch }}
         binary_name: "jcli"
+
