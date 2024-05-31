@@ -1,14 +1,21 @@
-on: release
 
 name: Build Release
 
+on: 
+  release:
+    types: [published]
+
 jobs:
   release-linux-386:
-    name: release linux/386
+    name: Release Linux/386
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -17,11 +24,15 @@ jobs:
         EXTRA_FILES: "LICENSE"
 
   release-linux-amd64:
-    name: release linux/amd64
+    name: Release Linux/amd64
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -30,66 +41,87 @@ jobs:
         EXTRA_FILES: "LICENSE"
 
   release-linux-arm:
-    name: release linux/386
+    name: Release Linux/ARM
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        GOARCH: "arm"
+        GOARCH: arm
         GOOS: linux
         EXTRA_FILES: "LICENSE"
 
   release-linux-arm64:
-    name: release linux/amd64
+    name: Release Linux/ARM64
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: arm64
         GOOS: linux
         EXTRA_FILES: "LICENSE"
 
   release-darwin-amd64:
-    name: release darwin/amd64
+    name: Release Darwin/amd64
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: darwin
         EXTRA_FILES: "LICENSE"
 
   release-windows-386:
-    name: release windows/386
+    name: Release Windows/386
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: "386"
         GOOS: windows
         EXTRA_FILES: "LICENSE"
 
   release-windows-amd64:
-    name: release windows/amd64
+    name: Release Windows/amd64
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-    - name: compile and release
+    - uses: actions/checkout@v2
+    - name: Set up Go environment
+      run: |
+        go env -w GO111MODULE=on
+        go mod tidy
+    - name: Compile and release
       uses: ngs/go-release.action@v1.0.1
       env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN_GITHUB }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         GOARCH: amd64
         GOOS: windows
-        EXTRA_FILES: "LICENSE"       
+        EXTRA_FILES: "LICENSE"
+
