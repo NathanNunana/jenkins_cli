@@ -1,0 +1,69 @@
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject
+    plugin="workflow-multibranch@733.v109046189126">
+    <actions />
+    <description />
+    <displayName>{{.Name}}</displayName>
+    <properties>
+        <org.jenkinsci.plugins.docker.workflow.declarative.FolderConfig
+            plugin="docker-workflow@563.vd5d2e5c4007f">
+            <dockerLabel />
+            <registry plugin="docker-commons@1.21" />
+        </org.jenkinsci.plugins.docker.workflow.declarative.FolderConfig>
+    </properties>
+    <folderViews class="jenkins.branch.MultiBranchProjectViewHolder"
+        plugin="branch-api@2.1071.v1a_188a_562481">
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"
+            reference="../.." />
+    </folderViews>
+    <healthMetrics />
+    <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.1071.v1a_188a_562481">
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"
+            reference="../.." />
+    </icon>
+    <orphanedItemStrategy
+        class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy"
+        plugin="cloudbees-folder@6.800.v71307ca_b_986b">
+        <pruneDeadBranches>true</pruneDeadBranches>
+        <daysToKeep>-1</daysToKeep>
+        <numToKeep>-1</numToKeep>
+        <abortBuilds>false</abortBuilds>
+    </orphanedItemStrategy>
+    <triggers />
+    <disabled>false</disabled>
+    <sources class="jenkins.branch.MultiBranchProject$BranchSourceList"
+        plugin="branch-api@2.1071.v1a_188a_562481">
+        <data>
+            <jenkins.branch.BranchSource>
+                <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource"
+                    plugin="github-branch-source@1701.v00cc8184df93">
+                    <apiUri>https://api.github.com</apiUri>
+                    <credentialsId>{{.CredentialsId}}</credentialsId>
+                    <repositoryUrl>{{.RepoURL}}</repositoryUrl>
+                    <traits>
+                        <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                            <strategyId>3</strategyId>
+                        </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+                        <org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                            <strategyId>2</strategyId>
+                        </org.jenkinsci.plugins.github__branch__source.OriginPullRequestDiscoveryTrait>
+                        <org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+                            <strategyId>2</strategyId>
+                            <trust
+                                class="org.jenkinsci.plugins.github_branch_source.ForkPullRequestDiscoveryTrait$TrustPermission" />
+                        </org.jenkinsci.plugins.github__branch__source.ForkPullRequestDiscoveryTrait>
+                    </traits>
+                </source>
+                <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
+                    <properties class="empty-list" />
+                </strategy>
+            </jenkins.branch.BranchSource>
+        </data>
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"
+            reference="../.." />
+    </sources>
+    <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
+        <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject"
+            reference="../.." />
+        <scriptPath>{{.JenkinsFilePath}}</scriptPath>
+    </factory>
+</org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>

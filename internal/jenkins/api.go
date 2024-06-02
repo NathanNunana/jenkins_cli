@@ -1,6 +1,7 @@
 package jenkins
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -48,7 +49,9 @@ func GetJobs() ([]Job, error) {
 	return jenkinsResponse.Jobs, nil
 }
 
-func CreateJob(name string) (Job, error) {
+func CreateJob(name ,repoURL, jenkinsfilePath,credentialsId,jobType string ) (Job, error) {
+	jobClient := http.Client{}
+
 	path, err := util.GetPath()
 	if err != nil {
 		return Job{}, err
@@ -57,12 +60,28 @@ func CreateJob(name string) (Job, error) {
 	if err != nil {
 		return Job{}, err
 	}
-	util.ReadXml()
-	req, err := http.NewRequest("POST", fmt.Sprintf("%s/createItem?name=%s", cfg.JenkinsURL, name), nil)
+	xmlContent,err := util.ReadXml(name ,repoURL, jenkinsfilePath,credentialsId,jobType)
+	if err != nil {
+		return Job{},err
+	}
+	req, err := http.NewRequest("POST", fmt.Sprintf("%s/createItem?name=%s", cfg.JenkinsURL, name), bytes.NewReader(xmlContent))
 	if err != nil {
 		return Job{}, nil
 	}
 	req.SetBasicAuth(cfg.Username, cfg.ApiToken)
 	req.Header.Set("Content-Type", "application/xml")
+ 
+	resp, err := jobClient.Do(req)
+	if err != nil {
+		return Job{}, err
+	}
+
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return Job{}, fmt.Errorf("failed to create job, %v", resp.StatusCode)
+	}
+
 	return Job{}, nil
+	
 }
