@@ -49,7 +49,7 @@ func GetJobs() ([]Job, error) {
 	return jenkinsResponse.Jobs, nil
 }
 
-func CreateJob(name ,repoURL, jenkinsfilePath,credentialsId,jobType string ) (Job, error) {
+func CreateJob(name, repoURL, jenkinsfilePath, branchName, credentialsId, jobType string) (Job, error) {
 	jobClient := http.Client{}
 
 	path, err := util.GetPath()
@@ -60,9 +60,9 @@ func CreateJob(name ,repoURL, jenkinsfilePath,credentialsId,jobType string ) (Jo
 	if err != nil {
 		return Job{}, err
 	}
-	xmlContent,err := util.ReadXml(name ,repoURL, jenkinsfilePath,credentialsId,jobType)
+	xmlContent, err := util.ReadXml(name, repoURL, jenkinsfilePath,branchName,credentialsId, jobType)
 	if err != nil {
-		return Job{},err
+		return Job{}, err
 	}
 	req, err := http.NewRequest("POST", fmt.Sprintf("%s/createItem?name=%s", cfg.JenkinsURL, name), bytes.NewReader(xmlContent))
 	if err != nil {
@@ -70,7 +70,7 @@ func CreateJob(name ,repoURL, jenkinsfilePath,credentialsId,jobType string ) (Jo
 	}
 	req.SetBasicAuth(cfg.Username, cfg.ApiToken)
 	req.Header.Set("Content-Type", "application/xml")
- 
+
 	resp, err := jobClient.Do(req)
 	if err != nil {
 		return Job{}, err
@@ -83,5 +83,5 @@ func CreateJob(name ,repoURL, jenkinsfilePath,credentialsId,jobType string ) (Jo
 	}
 
 	return Job{}, nil
-	
+
 }

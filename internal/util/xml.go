@@ -9,9 +9,9 @@ import (
 )
 
 type JobData struct {
-	Name    string
-	RepoURL string
-	// BranchName      string
+	Name            string
+	RepoURL         string
+	BranchName      string
 	JenkinsFilePath string
 	CredentialsId   string
 }
@@ -23,7 +23,7 @@ var (
 // credentialsId   string
 )
 
-func ReadXml(name, repoURL, jenkinsfilePath, credentialsId, jobType string) ([]byte, error) {
+func ReadXml(name, repoURL, jenkinsfilePath, branchName, credentialsId, jobType string) ([]byte, error) {
 	var tmpl *template.Template
 	var err error
 
@@ -35,11 +35,19 @@ func ReadXml(name, repoURL, jenkinsfilePath, credentialsId, jobType string) ([]b
 				log.Fatal(err)
 			}
 		}
+	case "freestyle":
+		{
+			tmpl, err = template.ParseFiles("./internal/templates/freestyle/config.xml")
+			if err != nil {
+				log.Fatal(err)
+
+			}
+		}
 	}
 	data := &JobData{
-		Name:    name,
-		RepoURL: repoURL,
-		// BranchName:      branchName,
+		Name:            name,
+		RepoURL:         repoURL,
+		BranchName:      branchName,
 		JenkinsFilePath: jenkinsfilePath,
 		CredentialsId:   credentialsId,
 	}

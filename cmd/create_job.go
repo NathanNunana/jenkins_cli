@@ -22,11 +22,11 @@ var createJobCmd = &cobra.Command{
 	Short: "Create a jenkins job",
 	Long:  ``,
 	Run: func(cmd *cobra.Command, args []string) {
-		created_job, err := jenkins.CreateJob(jobName,repoURL, jenkinsfilePath,credentialsId,jobType)
+		created_job, err := jenkins.CreateJob(jobName, repoURL, jenkinsfilePath, branchName, credentialsId, jobType)
 		if err != nil {
 			log.Fatalf("failed to create job, %v", err)
 		}
-	
+
 		fmt.Printf("created job, %s", jobName)
 		fmt.Println(created_job.Name)
 	},
@@ -34,14 +34,13 @@ var createJobCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(createJobCmd)
-	createJobCmd.Flags().StringVarP(&jobName, "name", "n", "", "Jenkins Job Name")
+	createJobCmd.Flags().StringVarP(&jobName, "name", "n", "", "Jenkins job name")
 	createJobCmd.Flags().StringVarP(&repoURL, "repo", "r", "", "Repository URL")
-	createJobCmd.Flags().StringVarP(&branchName, "branch", "b", "", "Branch Name")
 	createJobCmd.Flags().StringVarP(&credentialsId, "credentials", "c", "", "credential to create job")
-	// set defaults for jenkinsfile path and job type
+	// set defaults for jenkinsfile path,branch name and job type
+	createJobCmd.PersistentFlags().StringVarP(&branchName, "branch", "b", "main", "Branch Name")
 	createJobCmd.PersistentFlags().StringVarP(&jenkinsfilePath, "file", "f", "Jenkinsfile", "File path of Jenkins script")
-	createJobCmd.PersistentFlags().StringVarP(&jobType, "type", "t", "multi-branch", "Jenkins Job Type")
-
+	createJobCmd.PersistentFlags().StringVarP(&jobType, "type", "t", "multi-branch", "Specify Jenkins job type (multi-branch,freestyle)")
 
 	_ = createJobCmd.MarkFlagRequired("name")
 	_ = createJobCmd.MarkFlagRequired("repo")
