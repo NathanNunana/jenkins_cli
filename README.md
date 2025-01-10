@@ -1,6 +1,8 @@
 
 # Jenkins CLI Tool
 
+![Jenkins](./assets/jenkins.png)
+
 This project is a command-line utility built with Go to help developers interact with Jenkins without necessarily having to use the web interface.
 
 ## Table of Contents
